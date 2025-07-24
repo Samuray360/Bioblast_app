@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image
 
 # OpenCV video capture
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 def get_frame_base64():
     ret, frame = cap.read()
