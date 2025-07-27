@@ -26,8 +26,13 @@ def get_frame_base64():
 
 def main(page: ft.Page):
     page.title = "Real-Time Camera Feed"
-    cam_image = ft.Image(width=640, height=480)
-    page.add(cam_image)
+    cam_image = ft.Image(width=640, height=480,)
+    main_content = ft.Container(
+        content=cam_image,
+        alignment=ft.alignment.center,
+        expand=True,
+    )
+    page.add(main_content)
 
     # Function to update the camera image
     def update_loop():
