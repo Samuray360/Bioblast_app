@@ -39,23 +39,23 @@ def get_frame_base64():
 def main(page: ft.Page):
     def Reaction_page(e):
         # script_path=os.path.join(os.path.dirname(__file__),"Reaction_page.py")
-        # subprocess.Popen(["python3",script_path])
+        # subprocess.Popen(["python",script_path])
         # page.window.close()
         return
 
     def Levels_page(e):
         script_path=os.path.join(os.path.dirname(__file__),"Levels_page.py")
-        subprocess.Popen(["python3",script_path])
+        subprocess.Popen(["python",script_path])
         page.window.close()
         
     def inyection_page(e):
         script_path=os.path.join(os.path.dirname(__file__),"Inyection_page.py")
-        subprocess.Popen(["python3",script_path])
+        subprocess.Popen(["python",script_path])
         page.window.close()
 
     def co_levels_page(e):
         script_path=os.path.join(os.path.dirname(__file__),"co_levels_page.py")
-        subprocess.Popen(["python3",script_path])
+        subprocess.Popen(["python",script_path])
         page.window.close()
         
 # code of the camera 
@@ -69,12 +69,13 @@ def main(page: ft.Page):
         alignment=ft.alignment.center,
         expand=True,)
     
-#button declaration
-    reaction_button=ft.ElevatedButton(text="Reaction",on_click=Reaction_page,style=ft.ButtonStyle( bgcolor="#BF5D17" ,color=ft.colors.WHITE))
-    levels_button=ft.ElevatedButton(text="Levels",on_click=Levels_page,style=ft.ButtonStyle (bgcolor="#BF5D17",color=ft.colors.WHITE))
-    inyection_button=ft.ElevatedButton(text="Inyection",on_click=inyection_page,style=ft.ButtonStyle (bgcolor="#BF5D17",color=ft.colors.WHITE))
-    Co_levels_button=ft.ElevatedButton(text="Co2 levels",on_click=co_levels_page,style=ft.ButtonStyle (bgcolor="#BF5D17",color=ft.colors.WHITE))
 
+ 
+#button declaration
+    reaction_button=ft.Container(ft.Text("Reaction",color=ft.colors.WHITE),on_click=Reaction_page,bgcolor="#BF5D17",width=200)
+    levels_button=ft.Container(ft.Text("Levels",color=ft.colors.WHITE),on_click=Levels_page,bgcolor="#BF5D17",width=200)
+    inyection_button=ft.Container(ft.Text("Inyection",color=ft.colors.WHITE),on_click=inyection_page,bgcolor="#BF5D17",width=200)
+    Co_levels_button=ft.Container(ft.Text("Co2 Levels",color=ft.colors.WHITE),on_click=co_levels_page,bgcolor="#BF5D17",width=200)
 # the two button rows 
     button_row_1 = ft.Row(
         controls=[
