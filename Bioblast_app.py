@@ -20,6 +20,31 @@ def inyection_page():
 def co_levels_page():
     return
 
+#this function is for the color changes in the status of quimics
+def status(FSG_color=ft.colors,MPG_color=ft.colors,HAG_color=ft.colors,HPG_color=ft.colors):
+    FS=False
+    MP=False
+    HA=False
+    HP=False
+
+    if FS==True:
+        FSG_color=ft.colors.BLUE
+    else:
+        FSG_color=ft.colors.ORANGE
+    if MP==True:
+        MPG_color=ft.colors.BLUE
+    else:
+        MPG_color=ft.colors.ORANGE
+    if HA==True:
+        HAG_color=ft.colors.BLUE
+    else:
+        HAG_color=ft.colors.ORANGE
+    if HP==True:
+        HPG_color=ft.colors.BLUE
+    else:
+        HPG_color=ft.colors.ORANGE
+
+        return FSG_color,MPG_color,HAG_color,HPG_color
 def get_frame_base64():
     ret, frame = cap.read()
     if not ret:
@@ -81,19 +106,49 @@ def main(page: ft.Page):
         ],alignment=ft.MainAxisAlignment.CENTER
     )
 
-        #levels dectetor
+    
+    Ferrous_Sulfate_grafic=ft.Container(width=100,
+            height=100,
+            bgcolor=status([0]),  # Circle fill color
+            border=ft.border.all(width=2, color=ft.colors.WHITE),  # Border: 2px wide, black
+            border_radius=50,  # Half of width/height for a perfect circle
+            content=ft.Text("Ferrous Sulfate"),
+            alignment=ft.alignment.center)
 
-        _=ft.Container()
-        _=ft.Container()
-        _=ft.Container()
-        _=ft.Container()
+    Macroplastic_grafic=ft.Container(width=100,
+            height=100,
+            bgcolor=status([1]),  # Circle fill color
+            border=ft.border.all(width=2, color=ft.colors.WHITE),  # Border: 2px wide, black
+            border_radius=50,  # Half of width/height for a perfect circle
+            content=ft.Text("Macroplastic"),
+            alignment=ft.alignment.center)
+    
+    Hydrochloric_Acid_grafic=ft.Container(width=100,
+            height=100,
+            bgcolor=status([2]),  # Circle fill color
+            border=ft.border.all(width=2, color=ft.colors.WHITE),  # Border: 2px wide, black
+            border_radius=50,  # Half of width/height for a perfect circle
+            content=ft.Text("Hydrochloric_Acid"),
+            alignment=ft.alignment.center)
+    
+    Hydrogen_Peroxide_grafic=ft.Container(width=100,
+            height=100,
+            bgcolor=status([4]),  # Circle fill color
+            border=ft.border.all(width=2, color=ft.colors.WHITE),  # Border: 2px wide, black
+            border_radius=50,  # Half of width/height for a perfect circle
+            content=ft.Text("Hydrogen_Peroxide"),
+            alignment=ft.alignment.center)
 
+        # ft.Icon(name=ft.Icons.STAR, color=ft.Colors.ORANGE,size=30), 
+        # ft.Icon(name=ft.Icons.STAR, color=ft.Colors.BLUE, size=30),
 
+    grafics_row=ft.Row(
+        controls=[Ferrous_Sulfate_grafic,Macroplastic_grafic,Hydrochloric_Acid_grafic,Hydrogen_Peroxide_grafic],alignment=ft.alignment.center
+    )
+    levels=ft.Column(controls=[grafics_row,],alignment=ft.alignment.center
+        )
 
-
-
-
-    page.add(navigation,main_content)
+    page.add(navigation,main_content,levels)
 
     # Function to update the camera image
     def update_loop():
