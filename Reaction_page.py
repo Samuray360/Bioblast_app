@@ -64,7 +64,7 @@ def main(page: ft.Page):
 
     camera_content = ft.Container(
 
-        border=ft.border.all(10,ft.colors.BLUE),
+        border=ft.border.all(10,ft.Colors.BLUE),
         content=cam_image,
         alignment=ft.alignment.center,
         expand=True,)
@@ -72,37 +72,54 @@ def main(page: ft.Page):
 
  
 #button declaration
-    reaction_button=ft.Container(ft.Text("Reaction",color=ft.colors.WHITE),on_click=Reaction_page,bgcolor="#BF5D17",width=200)
-    levels_button=ft.Container(ft.Text("Levels",color=ft.colors.WHITE),on_click=Levels_page,bgcolor="#BF5D17",width=200)
-    inyection_button=ft.Container(ft.Text("Inyection",color=ft.colors.WHITE),on_click=inyection_page,bgcolor="#BF5D17",width=200)
-    Co_levels_button=ft.Container(ft.Text("Co2 Levels",color=ft.colors.WHITE),on_click=co_levels_page,bgcolor="#BF5D17",width=200)
-# the two button rows 
-    button_row_1 = ft.Row(
-        controls=[
-            
-            inyection_button,
-            Co_levels_button,
-           
-        ],spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER )
-    
-    button_row_2 = ft.Row(
-        controls=[
-            
-            reaction_button,
-            levels_button,
-           
-        ],spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER )
-    
-    #here is the column for the button and text in the top
-    navigation=ft.Column(
-        controls=[
-            ft.Text("BIOBLAST"),
-            ft.Text("Plastic Degradation"),
+    reaction_button = ft.Container(
+        ft.Text("Reaction", color=ft.Colors.WHITE),
+        on_click=Reaction_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    levels_button = ft.Container(
+        ft.Text("Levels", color=ft.Colors.WHITE),
+        on_click=Levels_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    inyection_button = ft.Container(
+        ft.Text("Injection", color=ft.Colors.WHITE),  # Corrected typo
+        on_click=inyection_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    co_levels_button = ft.Container(
+        ft.Text("CO₂ Levels", color=ft.Colors.WHITE),
+        on_click=co_levels_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
 
-            button_row_1,button_row_2
-        ],alignment=ft.MainAxisAlignment.CENTER
+    #here is the column for the button and text in the top
+    navigation = ft.Column(
+        controls=[
+            ft.Text("BIOBLAST", size=30, weight="bold"),
+            ft.Text("Plastic Degradation", size=20),
+            ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+            ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+          
+        ],
+        alignment=ft.MainAxisAlignment.CENTER,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
 
      

@@ -37,54 +37,70 @@ def main(page: ft.Page):
         page.window.close()
 
 #button declaration
-    reaction_button=ft.Container(ft.Text("Reaction",color=ft.colors.WHITE),on_click=Reaction_page,bgcolor="#BF5D17",width=200)
-    levels_button=ft.Container(ft.Text("Levels",color=ft.colors.WHITE),on_click=Levels_page,bgcolor="#BF5D17",width=200)
-    inyection_button=ft.Container(ft.Text("Inyection",color=ft.colors.WHITE),on_click=inyection_page,bgcolor="#BF5D17",width=200)
-    Co_levels_button=ft.Container(ft.Text("Co2 Levels",color=ft.colors.WHITE),on_click=co_levels_page,bgcolor="#BF5D17",width=200)
-# the two button rows 
-    button_row_1 = ft.Row(
-        controls=[
-            
-            inyection_button,
-            Co_levels_button,
-           
-        ],spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER )
-    
-    button_row_2 = ft.Row(
-        controls=[
-            
-            reaction_button,
-            levels_button,
-           
-        ],spacing=10,
-        alignment=ft.MainAxisAlignment.CENTER )
+    reaction_button = ft.Container(
+        ft.Text("Reaction", color=ft.Colors.WHITE),
+        on_click=Reaction_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    levels_button = ft.Container(
+        ft.Text("Levels", color=ft.Colors.WHITE),
+        on_click=Levels_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    inyection_button = ft.Container(
+        ft.Text("Injection", color=ft.Colors.WHITE),  # Corrected typo
+        on_click=inyection_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
+    co_levels_button = ft.Container(
+        ft.Text("CO₂ Levels", color=ft.Colors.WHITE),
+        on_click=co_levels_page,
+        bgcolor="#BF5D17",
+        width=200,
+        padding=10,
+        border_radius=5,
+        alignment=ft.alignment.center,
+    )
     
     #here is the column for the button and text in the top
-    navigation=ft.Column(
-
+    navigation = ft.Column(
         controls=[
-            ft.Text("BIOBLAST"),
-            ft.Text("Plastic Degradation"),
-
-            button_row_1,button_row_2
-        ],alignment=ft.MainAxisAlignment.CENTER
+            ft.Text("BIOBLAST", size=30, weight="bold"),
+            ft.Text("Plastic Degradation", size=20),
+            ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+            ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+          
+        ],
+        alignment=ft.MainAxisAlignment.CENTER,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
     
     Ferrous_Sulfate=ft.Row(controls=[
-    ft.Container(bgcolor=ft.colors.BLUE,content=ft.Text("Ferrous Sulfate",size=20)), ft.Container(border=ft.border.all(width=2, color=ft.colors.WHITE),content=
+    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Ferrous Sulfate",size=20)), ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
                 ft.TextField("")),
-    ])
+    ],alignment=ft.MainAxisAlignment.CENTER)
 
     Hydrochloric_Acid=ft.Row(controls=[
-    ft.Container(bgcolor=ft.colors.BLUE,content=ft.Text("Hydrochloric_Acid",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.colors.WHITE),content=
+    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Hydrochloric_Acid",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
                 ft.TextField("")),
-    ])
+    ],alignment=ft.MainAxisAlignment.CENTER)
 
     Hydrogen_Peroxide=ft.Row(controls=[
-    ft.Container(bgcolor=ft.colors.BLUE,content=ft.Text("Hydrogen_Peroxide",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.colors.WHITE),content=
+    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Hydrogen_Peroxide",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
                 ft.TextField(""))
-    ])
+    ],alignment=ft.MainAxisAlignment.CENTER)
 
 
     Ferrous_Sulfate.controls[1].content.value
@@ -105,7 +121,7 @@ def main(page: ft.Page):
     feedback=ft.Row(controls=[
         warning_icon,
         ft.Text("RECOMENDED: \n• 15 mL of 3% hydrogen peroxide(diluted in water)\n• 0.27g of iron (II) sulfate heptahydrate\n•5drops of hydrochloric acid")
-        ])
+        ],alignment=ft.MainAxisAlignment.CENTER)
 
     page.add(navigation,inyection_controls,feedback)
 
