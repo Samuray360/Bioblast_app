@@ -2,20 +2,32 @@ import flet as ft
 import os
 import subprocess
 
-
-
-
 def get_asset_path(filename):
     return os.path.join(os.path.dirname(__file__),filename)
-
-
-
 
 def main(page: ft.Page):
     page.title = "BioBlast Injection Dashboard"
     page.scroll = "auto"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Ensure page content is centered
     
+        # Error message text field to display validation errors
+    error_message = ft.Text("", color=ft.Colors.RED, size=14)
+
+    # Function to validate integer input
+    def validate_integer(e, text_field):
+        value = e.control.value.strip()
+        if value == "":
+            error_message.value = ""
+            page.update()
+            return
+        try:
+            float(value)  # Try converting to integer
+            error_message.value = ""  # Clear error if valid
+        except ValueError:
+            error_message.value = "Please enter a valid integer."
+            text_field.value = ""  # Clear invalid input
+        page.update()
+        
     #the function for the to sent the amount of quimic 
     def inject_ferrous_sulfate(e):
         print(Ferrous_Sulfate.controls[1].content.value)
@@ -102,28 +114,12 @@ def main(page: ft.Page):
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
-    inject_ferrous_sulfate_button=ft.Container(
-        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
-        bgcolor=ft.Colors.ORANGE,
-        border_radius=50,
-        on_click=inject_ferrous_sulfate,
-    )
-    inject_Hydrochloric_Acid_button=ft.Container(
-        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
-        bgcolor=ft.Colors.ORANGE,
-        border_radius=50,
-        on_click=inject_Hydrochloric_Acid,
-    )
-    inject_Hydrogen_Peroxide_button=ft.Container(
-        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
-        bgcolor=ft.Colors.ORANGE,
-        border_radius=50,
-        on_click=inject_Hydrogen_Peroxide,
-    )
     
     Ferrous_Sulfate=ft.Row(controls=[
     ft.Container(ft.Text("Ferrous Sulfate",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
-    ft.Container(ft.TextField(""),border=ft.border.all(width=2,color=ft.Colors.WHITE)),
+    
+    ft.Container(ft.TextField("", keyboard_type=ft.KeyboardType.NUMBER, on_change=lambda e: validate_integer(e, Ferrous_Sulfate.controls[1].content)),
+                 border=ft.border.all(width=2, color=ft.Colors.WHITE)),
     ft.Container(
         ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
         bgcolor=ft.Colors.ORANGE,
@@ -133,8 +129,11 @@ def main(page: ft.Page):
     ],alignment=ft.MainAxisAlignment.CENTER)
 
     Hydrochloric_Acid=ft.Row(controls=[
+        
     ft.Container(ft.Text("Hydrochloric Acid",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
-    ft.Container(ft.TextField(""),border=ft.border.all(width=2, color=ft.Colors.WHITE),),
+    
+    ft.Container(ft.TextField("", keyboard_type=ft.KeyboardType.NUMBER, on_change=lambda e: validate_integer(e, Hydrochloric_Acid.controls[1].content)), 
+                 border=ft.border.all(width=2, color=ft.Colors.WHITE)),
     ft.Container(
         ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
         bgcolor=ft.Colors.ORANGE,
@@ -146,7 +145,9 @@ def main(page: ft.Page):
 
     Hydrogen_Peroxide=ft.Row(controls=[
     ft.Container(ft.Text("Hydrogen Peroxide",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
-    ft.Container(ft.TextField(""),border=ft.border.all(width=2, color=ft.Colors.WHITE)),
+    
+    ft.Container(ft.TextField("", keyboard_type=ft.KeyboardType.NUMBER, on_change=lambda e: validate_integer(e, Hydrogen_Peroxide.controls[1].content)), 
+                 border=ft.border.all(width=2, color=ft.Colors.WHITE)),
     ft.Container(
         ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
         bgcolor=ft.Colors.ORANGE,
@@ -169,7 +170,8 @@ def main(page: ft.Page):
 
     feedback=ft.Row(controls=[
         warning_icon,
-        ft.Text("RECOMENDED: \n• 15 mL of 3% hydrogen peroxide(diluted in water)\n• 0.27g of iron (II) sulfate heptahydrate\n•5drops of hydrochloric acid")
+        ft.Text("RECOMENDED: \n• 15 mL of 3% hydrogen peroxide(diluted in water)\n• 0.27g of iron (II) sulfate heptahydrate\n•5drops of hydrochloric acid"),
+        error_message
         ],alignment=ft.MainAxisAlignment.CENTER)
 
     page.add(navigation,inyection_controls,feedback)
