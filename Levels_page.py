@@ -12,31 +12,16 @@ from PIL import Image
 
 def get_asset_path(filename):
     return os.path.join(os.path.dirname(__file__),filename)
+
 #this function is for the color changes in the status of quimics
-def status(FSG_color=ft.Colors,MPG_color=ft.Colors,HAG_color=ft.Colors,HPG_color=ft.Colors):
-    FS=False
-    MP=False
-    HA=False
-    HP=False
-
-    if FS==True:
-        FSG_color=ft.Colors.BLUE
-    else:
-        FSG_color=ft.Colors.ORANGE
-    if MP==True:
-        MPG_color=ft.Colors.BLUE
-    else:
-        MPG_color=ft.Colors.ORANGE
-    if HA==True:
-        HAG_color=ft.Colors.BLUE
-    else:
-        HAG_color=ft.Colors.ORANGE
-    if HP==True:
-        HPG_color=ft.Colors.BLUE
-    else:
-        HPG_color=ft.Colors.ORANGE
-
-        return FSG_color,MPG_color,HAG_color,HPG_color
+def status(fs=False, mp=False, ha=False, hp=False):
+    # Return colors based on boolean conditions
+    fsg_color = ft.Colors.BLUE if fs else ft.Colors.ORANGE
+    mpg_color = ft.Colors.BLUE if mp else ft.Colors.ORANGE
+    hag_color = ft.Colors.BLUE if ha else ft.Colors.ORANGE
+    hpg_color = ft.Colors.BLUE if hp else ft.Colors.ORANGE
+    return fsg_color, mpg_color, hag_color, hpg_color
+    
 def main(page: ft.Page):
     def Reaction_page(e):
         script_path=os.path.join(os.path.dirname(__file__),"Reaction_page.py")
@@ -104,60 +89,127 @@ def main(page: ft.Page):
             ft.Text("Plastic Degradation", size=20),
             ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
             ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
-              
+            ft.Text("Levels", size=20, weight="bold")
         ],
+        spacing=15,
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
     
-    Ferrous_Sulfate_grafic=ft.Container(width=100,
+    fs_status, mp_status, ha_status, hp_status = False, False, False, False  # Example conditions
+    fsg_color, mpg_color, hag_color, hpg_color = status(fs_status, mp_status, ha_status, hp_status)
+    
+
+    Ferrous_Sulfate_grafic=ft.Container(
+            width=100,
             height=100,
-            bgcolor=status([0]),  # Circle fill color
+            bgcolor=fsg_color,  # Circle fill color
             border=ft.border.all(width=2, color=ft.Colors.WHITE),  # Border: 2px wide, black
             border_radius=50,  # Half of width/height for a perfect circle
             
             )
 
-    Macroplastic_grafic=ft.Container(width=100,
+    Macroplastic_grafic=ft.Container(
+            width=100,
             height=100,
-            bgcolor=status([1]),  # Circle fill color
+            bgcolor=mpg_color,  # Circle fill color
             border=ft.border.all(width=2, color=ft.Colors.WHITE),  # Border: 2px wide, black
             border_radius=50,  # Half of width/height for a perfect circle
             
             )
     
-    Hydrochloric_Acid_grafic=ft.Container(width=100,
+    Hydrochloric_Acid_grafic=ft.Container(
+            width=100,
             height=100,
-            bgcolor=status([2]),  # Circle fill color
+            bgcolor=hag_color,  # Circle fill color
             border=ft.border.all(width=2, color=ft.Colors.WHITE),  # Border: 2px wide, black
             border_radius=50,  # Half of width/height for a perfect circle
             
             )
     
-    Hydrogen_Peroxide_grafic=ft.Container(width=100,
+    Hydrogen_Peroxide_grafic=ft.Container(
+            width=100,
             height=100,
-            bgcolor=status([4]),  # Circle fill color
+            bgcolor=hpg_color,  # Circle fill color
             border=ft.border.all(width=2, color=ft.Colors.WHITE),  # Border: 2px wide, black
             border_radius=50,  # Half of width/height for a perfect circle
             
             )
-    Ferrous_Sulfate_column=ft.Column(controls=(Ferrous_Sulfate_grafic,ft.Text("Ferrous Sulfate")))
-    Macroplastic_column=ft.Column(controls=(Macroplastic_grafic,ft.Text("Macroplastic"),))
-    Hydrochloric_Acid_column=ft.Column(controls=(Hydrochloric_Acid_grafic,ft.Text("Hydrochloric_Acid")))
-    Hydrogen_Peroxide_column=ft.Column(controls=(Hydrogen_Peroxide_grafic,ft.Text("Hydrogen_Peroxide")))
     
-    feedBack=ft.Row(controls=[
-        ft.Icon(name=ft.Icons.STAR, color=ft.Colors.ORANGE,size=30), 
-        ft.Text("Good"),
-        ft.Icon(name=ft.Icons.STAR, color=ft.Colors.BLUE, size=30),
-        ft.Text("Increase")
-        ],alignment=ft.MainAxisAlignment.CENTER)
+    # Create Columns with fixed-height text containers to prevent circle movement
+    Ferrous_Sulfate_column = ft.Column(
+        controls=[
+            Ferrous_Sulfate_grafic,
+            ft.Container(
+                content=ft.Text("Ferrous Sulfate", weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                height=50,  # Fixed height for text area
+                alignment=ft.alignment.center
+            )
+        ],
+        spacing=10,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    )
+    Macroplastic_column = ft.Column(
+        controls=[
+            Macroplastic_grafic,
+            ft.Container(
+                content=ft.Text("Macroplastic", weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                height=50,
+                alignment=ft.alignment.center
+            )
+        ],
+        spacing=10,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    )
+    Hydrochloric_Acid_column = ft.Column(
+        controls=[
+            Hydrochloric_Acid_grafic,
+            ft.Container(
+                content=ft.Text("Hydrochloric\nAcid", weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                height=50,
+                alignment=ft.alignment.center
+            )
+        ],
+        spacing=10,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    )
+    Hydrogen_Peroxide_column = ft.Column(
+        controls=[
+            Hydrogen_Peroxide_grafic,
+            ft.Container(
+                content=ft.Text("Hydrogen\nPeroxide", weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                height=50,
+                alignment=ft.alignment.center
+            )
+        ],
+        spacing=10,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    )
+    
+    feedBack=ft.Row(
+        controls=[
+            ft.Icon(name=ft.Icons.STAR, color=ft.Colors.ORANGE,size=30), 
+            ft.Text("Good",weight=ft.FontWeight.BOLD),
+            ft.Icon(name=ft.Icons.STAR, color=ft.Colors.BLUE, size=30),
+            ft.Text("Increase",weight=ft.FontWeight.BOLD)
+        ],
+        alignment=ft.MainAxisAlignment.CENTER
+        )
 
-    column_row=ft.Row(
-        controls=[Ferrous_Sulfate_column,Macroplastic_column,Hydrochloric_Acid_column,Hydrogen_Peroxide_column],spacing=10,alignment=ft.MainAxisAlignment.CENTER
+    circle_row=ft.Row(
+        controls=[Ferrous_Sulfate_column,
+                  Macroplastic_column,
+                  Hydrochloric_Acid_column,
+                  Hydrogen_Peroxide_column
+                  ],
+                spacing=30,
+                alignment=ft.MainAxisAlignment.CENTER
     )
 
-    levels=ft.Column(controls=[column_row,feedBack],alignment=ft.MainAxisAlignment.CENTER
+    levels=ft.Column(
+        controls=[circle_row,feedBack],
+        spacing=50,
+        alignment=ft.MainAxisAlignment.CENTER
         )
 
     page.add(navigation,levels)

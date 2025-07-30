@@ -1,20 +1,34 @@
 import flet as ft 
-import cv2
-import base64
-import threading
-import time
 import os
 import subprocess
-from io import BytesIO
-from PIL import Image
+
 
 
 
 def get_asset_path(filename):
     return os.path.join(os.path.dirname(__file__),filename)
 
+
+
+
 def main(page: ft.Page):
-     
+    page.title = "BioBlast Injection Dashboard"
+    page.scroll = "auto"
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Ensure page content is centered
+    
+    #the function for the to sent the amount of quimic 
+    def inject_ferrous_sulfate(e):
+        print(Ferrous_Sulfate.controls[1].content.value)
+        return
+
+    def inject_Hydrochloric_Acid(e):
+        print(Hydrochloric_Acid.controls[1].content.value)
+        return
+
+    def inject_Hydrogen_Peroxide(e):
+        print(Hydrogen_Peroxide.controls[1].content.value)
+        return
+    
     def Reaction_page(e):
         script_path=os.path.join(os.path.dirname(__file__),"Reaction_page.py")
         subprocess.Popen(["python",script_path])
@@ -81,31 +95,66 @@ def main(page: ft.Page):
             ft.Text("Plastic Degradation", size=20),
             ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
             ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+            ft.Text("Injection", size=20, weight="bold")
           
         ],
+        spacing=15,
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
+    inject_ferrous_sulfate_button=ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_ferrous_sulfate,
+    )
+    inject_Hydrochloric_Acid_button=ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_Hydrochloric_Acid,
+    )
+    inject_Hydrogen_Peroxide_button=ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_Hydrogen_Peroxide,
+    )
     
     Ferrous_Sulfate=ft.Row(controls=[
-    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Ferrous Sulfate",size=20)), ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
-                ft.TextField("")),
+    ft.Container(ft.Text("Ferrous Sulfate",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
+    ft.Container(ft.TextField(""),border=ft.border.all(width=2,color=ft.Colors.WHITE)),
+    ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_ferrous_sulfate,)
+    
     ],alignment=ft.MainAxisAlignment.CENTER)
 
     Hydrochloric_Acid=ft.Row(controls=[
-    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Hydrochloric_Acid",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
-                ft.TextField("")),
+    ft.Container(ft.Text("Hydrochloric Acid",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
+    ft.Container(ft.TextField(""),border=ft.border.all(width=2, color=ft.Colors.WHITE),),
+    ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_Hydrochloric_Acid,
+    )
+    
     ],alignment=ft.MainAxisAlignment.CENTER)
 
     Hydrogen_Peroxide=ft.Row(controls=[
-    ft.Container(bgcolor=ft.Colors.BLUE,content=ft.Text("Hydrogen_Peroxide",size=20)),ft.Container(border=ft.border.all(width=2, color=ft.Colors.WHITE),content=
-                ft.TextField(""))
+    ft.Container(ft.Text("Hydrogen Peroxide",size=20,weight=ft.FontWeight.BOLD),bgcolor=ft.Colors.BLUE,width=250,padding=10),
+    ft.Container(ft.TextField(""),border=ft.border.all(width=2, color=ft.Colors.WHITE)),
+    ft.Container(
+        ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
+        bgcolor=ft.Colors.ORANGE,
+        border_radius=50,
+        on_click=inject_Hydrogen_Peroxide,
+    )
     ],alignment=ft.MainAxisAlignment.CENTER)
 
-
-    Ferrous_Sulfate.controls[1].content.value
-    Hydrochloric_Acid.controls[1].content.value
-    Hydrogen_Peroxide.controls[1].content.value
 
     inyection_controls=ft.Column(
         controls=[Ferrous_Sulfate,Hydrochloric_Acid,Hydrogen_Peroxide],horizontal_alignment=ft.CrossAxisAlignment.CENTER

@@ -37,6 +37,7 @@ def get_frame_base64():
 
 #main
 def main(page: ft.Page):
+    
     def Reaction_page(e):
         # script_path=os.path.join(os.path.dirname(__file__),"Reaction_page.py")
         # subprocess.Popen(["python",script_path])
@@ -116,8 +117,10 @@ def main(page: ft.Page):
             ft.Text("Plastic Degradation", size=20),
             ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
             ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+            ft.Text("Reaction", size=20, weight="bold"),
           
         ],
+        spacing=15,
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )

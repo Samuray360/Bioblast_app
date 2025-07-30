@@ -14,7 +14,6 @@ async def main(page: ft.Page):
     page.title = "BioBlast CO₂ Dashboard"
     page.scroll = "auto"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Ensure page content is centered
-
     # Chart with number grid
     line_chart = ft.LineChart(
         data_series=[
@@ -66,8 +65,6 @@ async def main(page: ft.Page):
         alignment=ft.alignment.center,  # Center the chart
         padding=10,
     )
-
-    chart_title = ft.Text("CO₂ Levels (ppm)", size=24, visible=True)
 
     async def update_chart():
         x = 0  # Time in seconds
@@ -153,14 +150,15 @@ async def main(page: ft.Page):
             ft.Text("Plastic Degradation", size=20),
             ft.Row([inyection_button, co_levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
             ft.Row([reaction_button, levels_button], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
-            chart_title,
-            chart_container,  # Use centered container with chart
+            ft.Text("CO₂ Levels (ppm)", size=24, weight="bold"),
+            
         ],
+        spacing=15,
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Center column contents
     )
 
-    page.add(navigation)
+    page.add(navigation,chart_container)
 
 
 ft.app(target=main)
