@@ -14,6 +14,7 @@ async def main(page: ft.Page):
     page.title = "BioBlast CO₂ Dashboard"
     page.scroll = "auto"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER  # Ensure page content is centered
+    
     # Chart with number grid
     line_chart = ft.LineChart(
         data_series=[
@@ -48,14 +49,14 @@ async def main(page: ft.Page):
             labels_interval=200,  # Labels every 200 ppm
             show_labels=True,
             labels_size=40,
-            title=ft.Text("CO₂ (ppm)", size=16),
+            title=ft.Text("CO₂ (ppm)", size=13),
         ),
         # X-axis (bottom) with numerical labels
         bottom_axis=ft.ChartAxis(
             labels_interval=10,  # Labels every 10 seconds
             show_labels=True,
             labels_size=40,
-            title=ft.Text("Time (s)", size=16),
+            title=ft.Text("Time (s)", size=13),
         ),
     )
 
