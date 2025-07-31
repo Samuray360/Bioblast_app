@@ -1,9 +1,29 @@
 import flet as ft 
 import os
 import subprocess
+import time
+import serial
+import asyncio
+
+arduino = serial.Serial("COM3", 9600, timeout=1)
+time.sleep(2)  # Espera a que el Arduino reinicie
 
 def get_asset_path(filename):
     return os.path.join(os.path.dirname(__file__),filename)
+
+# async def relay1(e,ml):
+#     arduino.write(b"11 1\n")
+#     await asyncio.sleep(ml * 0.65)
+#     arduino.write(b"11 0\n")
+# async def relay2(e,ml):
+#     arduino.write(b"12 1\n")
+#     await asyncio.sleep(ml * 0.65)
+#     arduino.write(b"12 0\n")
+# async def relay3(e,ml):
+#     arduino.write(b"13 1\n")
+#     await asyncio.sleep(ml * 0.65)
+#     arduino.write(b"13 0\n")
+
 
 def main(page: ft.Page):
     page.title = "BioBlast Injection Dashboard"
@@ -29,16 +49,25 @@ def main(page: ft.Page):
         page.update()
         
     #the function for the to sent the amount of quimic 
-    def inject_ferrous_sulfate(e):
+    async def inject_ferrous_sulfate(e): # Relay 1
         print(Ferrous_Sulfate.controls[1].content.value)
+        arduino.write(b"11 1\n")
+        await asyncio.sleep(int(Hydrogen_Peroxide.controls[1].content.value) * 0.65)
+        arduino.write(b"11 0\n")
         return
 
-    def inject_Hydrochloric_Acid(e):
+    async def inject_Hydrochloric_Acid(e): # Relay 2
         print(Hydrochloric_Acid.controls[1].content.value)
+        arduino.write(b"12 1\n")
+        await asyncio.sleep(int(Hydrogen_Peroxide.controls[1].content.value) * 0.65)
+        arduino.write(b"12 0\n")
         return
 
-    def inject_Hydrogen_Peroxide(e):
+    async def inject_Hydrogen_Peroxide(e): # Relay 3
         print(Hydrogen_Peroxide.controls[1].content.value)
+        arduino.write(b"13 1\n")
+        await asyncio.sleep(int(Hydrogen_Peroxide.controls[1].content.value) * 0.65)
+        arduino.write(b"13 0\n")
         return
     
     def Reaction_page(e):
@@ -124,7 +153,7 @@ def main(page: ft.Page):
         ft.Icon(name=ft.Icons.CHECK, color=ft.Colors.WHITE,size=30),
         bgcolor=ft.Colors.ORANGE,
         border_radius=50,
-        on_click=inject_ferrous_sulfate,)
+        on_click=inject_ferrous_sulfate(),)
     
     ],alignment=ft.MainAxisAlignment.CENTER)
 

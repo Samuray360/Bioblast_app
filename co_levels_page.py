@@ -1,13 +1,20 @@
+import threading
 import flet as ft
 import os
 import subprocess
 import asyncio
 import random
+import time
+import serial
 
+arduino = serial.Serial("COM3", 9600, timeout=1)
+time.sleep(2)  # Espera a que el Arduino reinicie
 
 async def read_sensor():
     await asyncio.sleep(0.1)
-    return random.randint(400, 1000)  # Replace with actual sensor reading
+    while True:
+        line = arduino.readline().decode('utf-8', errors='ignore').strip().split(" ")
+        return line[0]
 
 
 async def main(page: ft.Page):
